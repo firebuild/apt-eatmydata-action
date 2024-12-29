@@ -1,0 +1,18 @@
+name: 'APT eatmydata'
+description: 'Installs eatmydata and configures apt to use it for dpkg operations'
+author: 'Firebuild Inc.'
+
+runs:
+  using: "composite"
+  steps:
+    - name: Install eatmydata
+      shell: bash
+      run: |
+        sudo bash -c 'apt-get install -y eatmydata || apt-get update && apt-get install -y eatmydata'
+    - name: Configure apt to use eatmydata
+      shell: bash
+      run: |
+        sudo ln -s /usr/bin/eatmydata /usr/local/bin/dpkg
+        sudo tee /etc/apt/apt.conf.d/25-eatmydata-action << 'EOF'
+        Dir::Bin::dpkg "/usr/local/bin/dpkg";
+        EOF

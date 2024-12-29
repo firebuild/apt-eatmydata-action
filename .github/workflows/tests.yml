@@ -1,0 +1,35 @@
+name: Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test_action_in_vm:
+    runs-on: ubuntu-latest
+      - uses: actions/checkout@v4
+      - name: Run action
+        uses: ./
+      - name: Test usage
+        run: |
+          sudo apt-get install -y strace
+          sudo strace -ff -oapt-eatmydata.trace apt-get install -y hello
+          ! grep fsync apt-eatmydata.trace*
+  test_action_in_container:
+    strategy:
+      matrix:
+        container: ["ubuntu:rolling", "debian:stable"]
+    runs-on: ubuntu-latest
+    container: ${{ matrix.container }}
+      - uses: actions/checkout@v4
+      - name: Run action
+        uses: ./
+      - name: Test usage
+        run: |
+          apt-get install -y strace
+          strace -ff -oapt-eatmydata.trace apt-get install -y hello
+          ! grep fsync apt-eatmydata.trace*

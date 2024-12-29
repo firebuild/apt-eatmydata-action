@@ -11,6 +11,7 @@ on:
 jobs:
   test_action_in_vm:
     runs-on: ubuntu-latest
+    steps:
       - uses: actions/checkout@v4
       - name: Run action
         uses: ./
@@ -25,6 +26,7 @@ jobs:
         container: ["ubuntu:rolling", "debian:stable"]
     runs-on: ubuntu-latest
     container: ${{ matrix.container }}
+    steps:
       - uses: actions/checkout@v4
       - name: Run action
         uses: ./

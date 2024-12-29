@@ -16,3 +16,7 @@ runs:
         $(which sudo) tee /etc/apt/apt.conf.d/25-eatmydata-action << 'EOF'
         Dir::Bin::dpkg "/usr/local/bin/dpkg";
         EOF
+
+branding:
+  icon: "zap"
+  color: "black"

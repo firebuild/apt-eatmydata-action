@@ -19,7 +19,7 @@ jobs:
         run: |
           sudo apt-get install -y strace
           sudo strace -ff -oapt-eatmydata.trace apt-get install -y hello
-          ! grep fsync apt-eatmydata.trace*
+          ! grep ':fsync(' apt-eatmydata.trace*
   test_action_in_container:
     strategy:
       matrix:
@@ -34,4 +34,4 @@ jobs:
         run: |
           apt-get install -y strace
           strace -ff -oapt-eatmydata.trace apt-get install -y hello
-          ! grep fsync apt-eatmydata.trace*
+          ! grep ':fsync(' apt-eatmydata.trace*

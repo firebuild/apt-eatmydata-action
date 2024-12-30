@@ -8,7 +8,7 @@ runs:
     - name: Install eatmydata
       shell: bash
       run: |
-        $(which sudo) bash -c 'apt-get install -y eatmydata || apt-get update && apt-get install -y eatmydata'
+        type eatmydata || $(which sudo) bash -c 'apt-get install -y eatmydata || apt-get update && apt-get install -y eatmydata'
     - name: Configure apt to use eatmydata
       shell: bash
       run: |
